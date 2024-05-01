@@ -7,6 +7,7 @@ import { Response, Request } from 'express';
 import { LoginResponse, RegisterResponse } from 'src/auth/types';
 import { UserService } from './user.service';
 import { GraphQLErrorFilter } from 'src/filters/custom-exception.filter';
+import { User } from './user.model';
 
 @Resolver('User')
 export class UserResolver {
@@ -26,24 +27,15 @@ export class UserResolver {
         confirmPassword: 'Password and confirm password are not the same.',
       });
     }
-    try {
-      const { user } = await this.authService.register(
-        registerDto,
-        context.res,
-      );
-      console.log('user!', user);
-      return { user };
-    } catch (error) {
-      // Handle the error, for instance if it's a validation error or some other type
-      return {
-        error: {
-          message: error.message,
-          // code: 'SOME_ERROR_CODE' // If you have error codes
-        },
-      };
-    }
+    const { user } = await this.authService.register(
+      registerDto,
+      context.res,
+    );
+    console.log('user!', user);
+    return { user };
   }
 
+  @UseFilters(GraphQLErrorFilter)
   @Mutation(() => LoginResponse) // Adjust this return type as needed
   async login(
     @Args('loginInput') loginDto: LoginDto,
@@ -69,6 +61,11 @@ export class UserResolver {
   @Query(() => String)
   async hello() {
     return 'hello world';
+  }
+
+  @Query(() => [User])
+  async getUsers() {
+    return this.userService.getUsers();
   }
 
 }
