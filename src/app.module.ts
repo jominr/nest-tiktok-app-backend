@@ -10,6 +10,8 @@ import { UserModule } from './user/user.module';
 import { UserService } from './user/user.service';
 import { UserResolver } from './user/user.resolver';
 import { PrismaService } from './prisma.service';
+import { PostModule } from './post/post.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { PrismaService } from './prisma.service';
     ConfigModule.forRoot({}),
     AuthModule,
     UserModule,
+    PostModule,
+    LikeModule,
 
   ],
   controllers: [AppController],
