@@ -12,9 +12,14 @@ import { UserResolver } from './user/user.resolver';
 import { PrismaService } from './prisma.service';
 import { PostModule } from './post/post.module';
 import { LikeModule } from './like/like.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'), // This points to the public folder where your static files are located
+      serveRoot: '/', // this means files will be available under 'http://localhost:3000/files/'
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
