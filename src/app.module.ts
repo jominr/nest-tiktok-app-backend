@@ -7,7 +7,9 @@ import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { UuserService } from './uuser/uuser.service';
+import { UserService } from './user/user.service';
+import { UserResolver } from './user/user.resolver';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [
@@ -26,6 +28,6 @@ import { UuserService } from './uuser/uuser.service';
 
   ],
   controllers: [AppController],
-  providers: [AppService, UuserService],
+  providers: [AppService, UserResolver, UserService, PrismaService],
 })
 export class AppModule {}
