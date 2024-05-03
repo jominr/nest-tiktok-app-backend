@@ -14,7 +14,10 @@ import { PostModule } from './post/post.module';
 import { LikeModule } from './like/like.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { CommentModule } from './comment/comment.module';
-
+/*
+  `app.module`: 是 NestJS 应用程序的根模块，它定义了应用程序的各种模块、控制器和提供者。
+  在 `app.module` 中，你可以导入其他模块、定义应用程序的全局中间件和全局提供者，以及配置应用程序的全局选项。
+*/
 @Module({
   imports: [
     ServeStaticModule.forRoot({
